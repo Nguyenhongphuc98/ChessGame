@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ObjectGame
 {
@@ -51,16 +52,37 @@ namespace ObjectGame
 
         public void SetNextPlayer()
         {
-            this.Curentlayer = (this.Curentlayer.sideplayer == ChessPieceSide.BLACK) ? this.Whitelayer : this.Blacklayer;
+            if(this.Curentlayer.sideplayer == ChessPieceSide.BLACK)
+            {
+                //luu lai player hien tai roi moi set next player. vi trong truong hop di chuyen King
+                //se lam thay doi data of curentlayer
+                Blacklayer = Curentlayer;
+                Curentlayer = Whitelayer;
+            }
+            else
+            {
+                Whitelayer = Curentlayer;
+                Curentlayer = Blacklayer;
+            }
+           
+        }
+        public Player GetNextPlayer()
+        {
+            if (Curentlayer.sideplayer == ChessPieceSide.BLACK)
+                return Whitelayer;
+            else
+                return Blacklayer;
         }
 
         public Cell GetCell(int position)
         {
+            //MessageBox.Show(position + "");
             return listCell[position];
         }
 
         public Board CreateDefaultListPieceBoard()
         {
+            this.ListChessPiece.Clear();
             //Black ChessPieceSide
             this.SetPiece(new Rook(0,ChessPieceType.ROOK, ChessPieceSide.BLACK));
             this.SetPiece(new Knight(1, ChessPieceType.KNIGHT, ChessPieceSide.BLACK));
@@ -106,6 +128,7 @@ namespace ObjectGame
             {
                 cells[i] = Cell.CreateCell(i, this.GetPiece(i));
             }
+            if (this.listCell != null) this.listCell.Clear();
             this.listCell = cells.ToList();
 
             this.Blacklayer = new Player((King) cells[4].GetChessPieces(),ChessPieceSide.BLACK);

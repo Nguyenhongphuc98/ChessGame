@@ -37,6 +37,7 @@
             // btn2Player
             // 
             this.btn2Player.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.btn2Player.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btn2Player.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btn2Player.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn2Player.BorderRadius = 0;
@@ -55,13 +56,13 @@
             this.btn2Player.IconVisible = true;
             this.btn2Player.IconZoom = 90D;
             this.btn2Player.IsTab = false;
-            this.btn2Player.Location = new System.Drawing.Point(370, 186);
+            this.btn2Player.Location = new System.Drawing.Point(388, 197);
             this.btn2Player.Name = "btn2Player";
             this.btn2Player.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btn2Player.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.btn2Player.OnHoverTextColor = System.Drawing.Color.White;
             this.btn2Player.selected = false;
-            this.btn2Player.Size = new System.Drawing.Size(316, 48);
+            this.btn2Player.Size = new System.Drawing.Size(273, 48);
             this.btn2Player.TabIndex = 0;
             this.btn2Player.Text = "2 Người chơi";
             this.btn2Player.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,6 +73,7 @@
             // btnDanhVoiMay
             // 
             this.btnDanhVoiMay.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.btnDanhVoiMay.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnDanhVoiMay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btnDanhVoiMay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDanhVoiMay.BorderRadius = 0;
@@ -90,13 +92,13 @@
             this.btnDanhVoiMay.IconVisible = true;
             this.btnDanhVoiMay.IconZoom = 90D;
             this.btnDanhVoiMay.IsTab = false;
-            this.btnDanhVoiMay.Location = new System.Drawing.Point(370, 257);
+            this.btnDanhVoiMay.Location = new System.Drawing.Point(388, 268);
             this.btnDanhVoiMay.Name = "btnDanhVoiMay";
             this.btnDanhVoiMay.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.btnDanhVoiMay.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.btnDanhVoiMay.OnHoverTextColor = System.Drawing.Color.White;
             this.btnDanhVoiMay.selected = false;
-            this.btnDanhVoiMay.Size = new System.Drawing.Size(316, 48);
+            this.btnDanhVoiMay.Size = new System.Drawing.Size(273, 48);
             this.btnDanhVoiMay.TabIndex = 1;
             this.btnDanhVoiMay.Text = "Chơi với máy";
             this.btnDanhVoiMay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -106,6 +108,7 @@
             // bunifuFlatButton2
             // 
             this.bunifuFlatButton2.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(139)))), ((int)(((byte)(87)))));
+            this.bunifuFlatButton2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.bunifuFlatButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.bunifuFlatButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.bunifuFlatButton2.BorderRadius = 0;
@@ -124,13 +127,13 @@
             this.bunifuFlatButton2.IconVisible = true;
             this.bunifuFlatButton2.IconZoom = 90D;
             this.bunifuFlatButton2.IsTab = false;
-            this.bunifuFlatButton2.Location = new System.Drawing.Point(370, 326);
+            this.bunifuFlatButton2.Location = new System.Drawing.Point(388, 337);
             this.bunifuFlatButton2.Name = "bunifuFlatButton2";
             this.bunifuFlatButton2.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.bunifuFlatButton2.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(129)))), ((int)(((byte)(77)))));
             this.bunifuFlatButton2.OnHoverTextColor = System.Drawing.Color.White;
             this.bunifuFlatButton2.selected = false;
-            this.bunifuFlatButton2.Size = new System.Drawing.Size(316, 48);
+            this.bunifuFlatButton2.Size = new System.Drawing.Size(273, 48);
             this.bunifuFlatButton2.TabIndex = 2;
             this.bunifuFlatButton2.Text = "Đánh qua Lan";
             this.bunifuFlatButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -146,7 +149,9 @@
             this.Controls.Add(this.bunifuFlatButton2);
             this.Controls.Add(this.btnDanhVoiMay);
             this.Controls.Add(this.btn2Player);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MenuGame";
             this.ResumeLayout(false);
 

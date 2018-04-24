@@ -33,12 +33,21 @@ namespace GUI
             this.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
             listCellGui = new List<CellGui>();
-            for(int i=0;i<64;i++)
+            AddCellGuiAndCell();
+        }
+
+        public void AddCellGuiAndCell()
+        {
+            // if(listCellGui!=null) listCellGui.Clear();
+            this.Controls.Clear();
+            if(listCellGui!=null) listCellGui.Clear();
+            for (int i = 0; i < 64; i++)
             {
                 CellGui cell = new CellGui(this, i);
-                this.Controls.Add(cell,i%8,i/8);
+                this.Controls.Add(cell, i % 8, i / 8);
                 listCellGui.Add(cell);
             }
+            this.Refresh();
         }
 
         public CellGui GetCellGui(int id)

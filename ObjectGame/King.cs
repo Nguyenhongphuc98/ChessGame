@@ -27,7 +27,7 @@ namespace ObjectGame
             foreach (int argument in King.legalMoveArguments)
             {
                 int checkPosition = this.chessPiecePosition + argument;
-                if (board.checkedForLegalPosition(checkPosition) ||
+                if (!board.checkedForLegalPosition(checkPosition) ||
                     King.firstColumnViolation(this.chessPiecePosition, argument) ||
                     King.eightColumnViolation(this.chessPiecePosition, argument))
                     continue;
@@ -52,14 +52,14 @@ namespace ObjectGame
             return ListCanMove;
         }
 
-        private static bool firstColumnViolation(int chessPiecePosition, int argument)
+        private static bool firstColumnViolation(int Position, int argument)
         {
-            return chessPiecePosition % 8 == 0 && ((argument == -1 || argument == -9 || argument == 7));
+            return Position % 8 == 0 && ((argument == -1 || argument == -9 || argument == 7));
         }
 
-        private static bool eightColumnViolation(int chessPiecePosition, int argument)
+        private static bool eightColumnViolation(int Position, int argument)
         {
-            return chessPiecePosition % 8 == 7 && ((argument == 1) || (argument == -7) || (argument == 9));
+            return Position % 8 == 7 && ((argument == 1) || (argument == -7) || (argument == 9));
         }
 
         public override ChessPieces movePiece(Move move)

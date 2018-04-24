@@ -102,14 +102,42 @@ namespace GUI
                         {
                             if (move.destination == this.board.CellSelectedSecond.iPosition)
                             {
+                                
+                                //kiem tra xem thu co phai la phong chuc cho tot hay khong.
+                                if (move.IsPromote())
+                                {
+                                    PromotionForm f = new PromotionForm();
+                                    f.SetIconImage(move.actionPiece.side);
+                                    f.ShowDialog();
+                                    if (f.DialogResult == DialogResult.OK)
+                                    {
+                                        //set lai con tot vua di la con duoc chon tu bang phong chuc.
+                                        ChessPieces p = f.GetChessPiece(move.actionPiece.side);
+                                        p.chessPiecePosition = move.actionPiece.chessPiecePosition;
+                                        move.actionPiece = p;
+                                    }
+                                }
+
+
+                                //thay doi board logic
                                 this.board.boardLogic = move.ExcuteMove(this.board.boardLogic);
-                                //set lai icon tren ban co cho nguoi xem biet duoc  da di.
+
+
+                                //kiem tra coi end game hay k
+                                if (move.TheKingDie(this.board.boardLogic))
+                                {
+                                    Mode1AndMode2.status_game = statusGame.EndGame;
+
+                                }
+
+                                //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
                                 this.board.GetCellGui(this.board.CellSelectedFirst.iPosition).SetImageIcon();
                                 this.board.GetCellGui(this.board.CellSelectedSecond.iPosition).SetImageIcon();
 
                                 //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
                                 this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
-                                this.board.boardLogic.SetNextPlayer();                          
+                                this.board.boardLogic.SetNextPlayer();  
+                                                        
                                 break;
                             }
 

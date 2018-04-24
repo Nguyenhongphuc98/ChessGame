@@ -28,5 +28,10 @@ namespace ObjectGame
         {
             return this.chessPieceType==ChessPieceType.PAW;
         }
+
+        public bool IsKing()
+        {
+            return this.chessPieceType == ChessPieceType.KING;
+        }
     }
 }

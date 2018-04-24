@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mode1AndMode2));
             this.pnContainPlayer = new System.Windows.Forms.Panel();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
@@ -38,10 +39,19 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.pnChat = new System.Windows.Forms.Panel();
             this.btnSendMessage = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reSetGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerCheckEndGame = new System.Windows.Forms.Timer(this.components);
+            this.timerProcessbarPlayer = new System.Windows.Forms.Timer(this.components);
             this.pnContainPlayer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer1)).BeginInit();
             this.pnChat.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnContainPlayer
@@ -70,7 +80,7 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(298, 16);
             this.progressBar1.TabIndex = 4;
-            this.progressBar1.Value = 50;
+            this.progressBar1.Value = 100;
             // 
             // pbPlayer2
             // 
@@ -133,6 +143,63 @@
             this.btnSendMessage.Text = "Gửi tin";
             this.btnSendMessage.UseVisualStyleBackColor = false;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1061, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.reSetGameToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.exitToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Text = "Menu";
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            // 
+            // reSetGameToolStripMenuItem
+            // 
+            this.reSetGameToolStripMenuItem.Name = "reSetGameToolStripMenuItem";
+            this.reSetGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.reSetGameToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.reSetGameToolStripMenuItem.Text = "ResetGame";
+            this.reSetGameToolStripMenuItem.Click += new System.EventHandler(this.reSetGameToolStripMenuItem_Click_1);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // timerCheckEndGame
+            // 
+            this.timerCheckEndGame.Tick += new System.EventHandler(this.timerCheckEndGame_Tick);
+            // 
+            // timerProcessbarPlayer
+            // 
+            this.timerProcessbarPlayer.Enabled = true;
+            this.timerProcessbarPlayer.Tick += new System.EventHandler(this.timerProcessbarPlayer_Tick);
+            // 
             // Mode1AndMode2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,14 +209,20 @@
             this.ClientSize = new System.Drawing.Size(1061, 577);
             this.Controls.Add(this.pnChat);
             this.Controls.Add(this.pnContainPlayer);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Mode1AndMode2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bàn cờ";
             this.pnContainPlayer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer1)).EndInit();
             this.pnChat.ResumeLayout(false);
             this.pnChat.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -163,5 +236,13 @@
         private System.Windows.Forms.Button btnSendMessage;
         private System.Windows.Forms.ProgressBar progressBar2;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reSetGameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Timer timerCheckEndGame;
+        private System.Windows.Forms.Timer timerProcessbarPlayer;
     }
 }
