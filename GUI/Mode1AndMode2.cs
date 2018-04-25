@@ -80,6 +80,11 @@ namespace GUI
                   
             }
         }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.boardGui.Undo();
+        }
     }
 
 

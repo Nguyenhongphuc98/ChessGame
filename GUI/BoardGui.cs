@@ -15,16 +15,17 @@ namespace GUI
         public Cell CellSelectedFirst { get; set; }
         public Cell CellSelectedSecond { get; set; }
         public Board boardLogic { get; set; }
+        public static MoveHistory moveHistory;
 
         public ChessPieces workingPiece { get; set; }
 
         public BoardGui(ChessPieceSide sidePlayFirst) : base()
         {
             boardLogic = new Board(sidePlayFirst);
-            this.CellSelectedFirst = this.CellSelectedSecond = null;
+            moveHistory = new MoveHistory();
 
-            this.ColumnCount = 8;
-            
+            this.CellSelectedFirst = this.CellSelectedSecond = null;
+            this.ColumnCount = 8;           
             this.RowCount = 8;
 
 
@@ -53,6 +54,22 @@ namespace GUI
         public CellGui GetCellGui(int id)
         {
             return listCellGui[id];
+        }
+
+        public void Undo()
+        {
+            
+
+            //set lai icon tren cellGui neu co byoc di truoc do
+            //neu chua di cai nao thi bo tay. khong the undo
+            if(BoardGui.moveHistory.GetNearestMove()!=null)
+            {
+                this.boardLogic = BoardGui.moveHistory.Undo(this.boardLogic);
+                this.listCellGui[BoardGui.moveHistory.GetNearestMove().actionPiece.chessPiecePosition].SetImageIcon();
+                this.listCellGui[BoardGui.moveHistory.GetNearestMove().destination].SetImageIcon();
+                BoardGui.moveHistory.RemoveHistoryForThisMove();
+            }
+
         }
     }
 }

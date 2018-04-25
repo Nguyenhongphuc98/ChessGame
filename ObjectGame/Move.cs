@@ -135,7 +135,7 @@ namespace ObjectGame
 
     public class AttackMove : Move
     {
-        ChessPieces pieceWasAttacked;
+        public ChessPieces pieceWasAttacked;
 
         public AttackMove(ChessPieces piece, int des, ChessPieces pieceWasAttacked) : base(piece, des)
         {

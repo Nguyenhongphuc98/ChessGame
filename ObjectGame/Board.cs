@@ -29,7 +29,9 @@ namespace ObjectGame
             ListChessPiece = new Dictionary<int, ChessPieces>();
             CreateDefaultListPieceBoard();
             CreateCellBoard(sidePlayFirst);
+
         } 
+
 
         public Board SetPiece(ChessPieces piece)
         {

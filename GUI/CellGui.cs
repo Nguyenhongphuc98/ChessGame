@@ -122,6 +122,10 @@ namespace GUI
                                 //thay doi board logic
                                 this.board.boardLogic = move.ExcuteMove(this.board.boardLogic);
 
+                                //dua move vao lich su.
+                                BoardGui.moveHistory.ListMoveHistory.Add(move);
+                               // MessageBox.Show("da them 1 move vao stack");
+
 
                                 //kiem tra coi end game hay k
                                 if (move.TheKingDie(this.board.boardLogic))
