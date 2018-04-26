@@ -61,7 +61,7 @@
             this.pnContainPlayer.Controls.Add(this.progressBar1);
             this.pnContainPlayer.Controls.Add(this.pbPlayer2);
             this.pnContainPlayer.Controls.Add(this.pbPlayer1);
-            this.pnContainPlayer.Location = new System.Drawing.Point(738, 23);
+            this.pnContainPlayer.Location = new System.Drawing.Point(738, 43);
             this.pnContainPlayer.Name = "pnContainPlayer";
             this.pnContainPlayer.Size = new System.Drawing.Size(304, 236);
             this.pnContainPlayer.TabIndex = 3;
@@ -126,7 +126,7 @@
             this.pnChat.Controls.Add(this.btnSendMessage);
             this.pnChat.Controls.Add(this.textBox1);
             this.pnChat.Controls.Add(this.treeView1);
-            this.pnChat.Location = new System.Drawing.Point(739, 281);
+            this.pnChat.Location = new System.Drawing.Point(739, 301);
             this.pnChat.Name = "pnChat";
             this.pnChat.Size = new System.Drawing.Size(306, 276);
             this.pnChat.TabIndex = 3;
@@ -207,7 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1061, 577);
+            this.ClientSize = new System.Drawing.Size(1061, 593);
             this.Controls.Add(this.pnChat);
             this.Controls.Add(this.pnContainPlayer);
             this.Controls.Add(this.menuStrip1);

@@ -30,7 +30,7 @@ namespace GUI
 
 
             this.Size = new Size(538, 538);
-            this.Location = new Point(90, 20);
+            this.Location = new Point(90, 40);
             this.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
             listCellGui = new List<CellGui>();

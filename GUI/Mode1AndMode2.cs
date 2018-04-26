@@ -32,6 +32,9 @@ namespace GUI
             this.boardGui.boardLogic.CreateDefaultListPieceBoard();
             this.boardGui.boardLogic.CreateCellBoard(ChessPieceSide.WHITE);
             this.boardGui.AddCellGuiAndCell();
+
+            //reset lai lich su. ahihi
+            BoardGui.moveHistory.ListMoveHistory.Clear();
         }
 
 
@@ -62,6 +65,8 @@ namespace GUI
                 {
                     timerProcessbarPlayer.Stop();
                     MessageBox.Show(" time up - Black Win!!!");
+                    ResetGame();
+                    timerProcessbarPlayer.Start();
                     
                 }
                     
@@ -75,7 +80,9 @@ namespace GUI
                 {
                     timerProcessbarPlayer.Stop();
                     MessageBox.Show(" time up - White Win!!!");
-                   
+                    ResetGame();
+                    timerProcessbarPlayer.Start();
+
                 }
                   
             }
