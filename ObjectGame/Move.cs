@@ -101,7 +101,8 @@ namespace ObjectGame
         void checkDangerousForTheKing(Board board)
         {
             List<Move> listMoveFuture = new List<Move>();
-            listMoveFuture = board.GetPiece(destination).getLegalMoves(board);
+            ChessPieces p = (ChessPieces) board.GetCell(this.destination).GetChessPieces();
+            listMoveFuture = p.getLegalMoves(board);
 
             King king = board.GetNextPlayer().king;
             foreach (Move m in listMoveFuture)

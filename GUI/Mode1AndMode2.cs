@@ -34,13 +34,15 @@ namespace GUI
 
             //che do danh 2 nguoi 1 may hoac danh voi may thi !enable khung chat
             if (Mode1AndMode2.modeplay == 1 || Mode1AndMode2.modeplay == 2)
-                this.lvChat.Enabled = btnSendMessage.Enabled = tbmess.Enabled = false;
+                //this.lvChat.Enabled = btnSendMessage.Enabled = tbmess.Enabled = false;
+                pnChat.Visible = false;
             else
+            {
                 //nguoc lai la danh qua LAN
                 timerCheckMove.Start();
+                socket = new SocketManager();
+            }
 
-
-            socket = new SocketManager();
         }
 
         public void ResetGame()
@@ -128,11 +130,58 @@ namespace GUI
         }
         #endregion
 
-        
+
+        delegate void updateExcuteLANDelegate(Form form);
+        private void ExcuteMoveLAN(Form form)
+        {
+            if (form.InvokeRequired)
+            {
+                // this is worker thread
+                updateExcuteLANDelegate del = new updateExcuteLANDelegate(ExcuteMoveLAN);
+                form.Invoke(del, new object[] { form });
+            }
+            else
+            {
+                // this is UI thread
+                Point position = Mode1AndMode2.moveLAN; // x la diem dau- y la diem den
+                ChessPieces piece =(ChessPieces) this.boardGui.boardLogic.GetCell(position.X).GetChessPieces().Clone();
+              //  MessageBox.Show(piece.chessPieceType.chessPieceName);
+                Move move = new NormalMove(piece, position.Y);
+                
+
+                CellGui cellG = this.boardGui.GetCellGui(position.X);
+
+                /* khong can thiet, cainay chi cap nhat game thoi ma, chi can hien ben nguoi choi duoc roi
+                if (move.IsPromote())
+                {
+                    cellG.SetPromote(move);
+                }
+                */
+
+                this.boardGui.boardLogic = move.ExcuteMove(this.boardGui.boardLogic);
+                BoardGui.moveHistory.ListMoveHistory.Add(move);
+                if (move.TheKingDie(this.boardGui.boardLogic))
+                {
+                    Mode1AndMode2.status_game = statusGame.EndGame;
+
+                }
+
+                //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
+                this.boardGui.GetCellGui(position.X).SetImageIcon();
+                this.boardGui.GetCellGui(position.Y).SetImageIcon();
+
+                //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
+                this.boardGui.CellSelectedFirst = this.boardGui.CellSelectedSecond = null;
+               // this.boardGui.boardLogic.SetNextPlayer();
+            }
+           
+        }
+
+
         void Listen()
         {
             SocketData data = (SocketData)socket.Receive();
-            MessageBox.Show("da nhan  "+data.flag);
+            //MessageBox.Show("da nhan  "+data.flag);
             switch (data.flag)
             {
                 case (int)TypeData.GUI_TIN:
@@ -142,8 +191,10 @@ namespace GUI
                     break;
 
                 case (int)TypeData.MOVE:
-                    ListViewItem lvii = new ListViewItem(data.move.X + "->" + data.move.Y);
-                    lvChat.Items.Add(lvii);
+                    // ListViewItem lvii = new ListViewItem(data.move.X + "->" + data.move.Y);
+                    // UpdateListView(lvii);
+                    Mode1AndMode2.moveLAN = data.move;
+                    ExcuteMoveLAN(this);
                     break;
 
                 case (int)TypeData.START:
@@ -204,11 +255,14 @@ namespace GUI
 
         private void Mode1AndMode2_Load(object sender, EventArgs e)
         {
-            tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
-            if (string.IsNullOrEmpty(tbmess.Text))
+            if (Mode1AndMode2.modeplay == 3)
             {
                 tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
-            }
+                if (string.IsNullOrEmpty(tbmess.Text))
+                {
+                    tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
+                }
+            }            
         }
 
         #region Update boardgame when start game
@@ -227,6 +281,8 @@ namespace GUI
                 lbPlay.Visible = false;
                 boardGui = new BoardGui(side);
                 this.Controls.Add(boardGui);
+                this.boardGui = boardGui;
+
             }
         }
         #endregion
@@ -240,11 +296,17 @@ namespace GUI
         }
         private void lbPlay_Click(object sender, EventArgs e)
         {
-            SocketData data = new SocketData((int)TypeData.START, "start", Mode1AndMode2.moveLAN);
-            socket.Send(data);
+            //neu dang o che do danh qua LAN thu truyen cho ben kia biet da bat dau
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.START, "start", Mode1AndMode2.moveLAN);
+                socket.Send(data);
+            }
+           
 
             StartGame(ChessPieceSide.WHITE);
             // MessageBox.Show("da send click");
+
         }
 
         private void timerCheckMove_Tick(object sender, EventArgs e)

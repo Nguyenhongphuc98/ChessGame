@@ -17,7 +17,7 @@ namespace ObjectGame
 
         public override ChessPieces GetChessPieces()
         {
-            return chessPiece;
+            return (ChessPieces) chessPiece.Clone();
         }
 
         public override bool Occupied()

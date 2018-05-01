@@ -56,6 +56,21 @@ namespace GUI
             this.BackColor = backGroundColor;
         }
 
+
+        public void SetPromote(Move move)
+        {
+            PromotionForm f = new PromotionForm();
+            f.SetIconImage(move.actionPiece.side);
+            f.ShowDialog();
+            if (f.DialogResult == DialogResult.OK)
+            {
+                //set lai con tot vua di la con duoc chon tu bang phong chuc.
+                ChessPieces p = f.GetChessPiece(move.actionPiece.side);
+                p.chessPiecePosition = move.actionPiece.chessPiecePosition;
+                move.actionPiece = p;
+            }
+        }
+
         private void CellGui_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -110,16 +125,7 @@ namespace GUI
                                     //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                     if (move.IsPromote())
                                     {
-                                        PromotionForm f = new PromotionForm();
-                                        f.SetIconImage(move.actionPiece.side);
-                                        f.ShowDialog();
-                                        if (f.DialogResult == DialogResult.OK)
-                                        {
-                                            //set lai con tot vua di la con duoc chon tu bang phong chuc.
-                                            ChessPieces p = f.GetChessPiece(move.actionPiece.side);
-                                            p.chessPiecePosition = move.actionPiece.chessPiecePosition;
-                                            move.actionPiece = p;
-                                        }
+                                        SetPromote(move);
                                     }
 
 
@@ -199,16 +205,7 @@ namespace GUI
                                         //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                         if (move.IsPromote())
                                         {
-                                            PromotionForm f = new PromotionForm();
-                                            f.SetIconImage(move.actionPiece.side);
-                                            f.ShowDialog();
-                                            if (f.DialogResult == DialogResult.OK)
-                                            {
-                                                //set lai con tot vua di la con duoc chon tu bang phong chuc.
-                                                ChessPieces p = f.GetChessPiece(move.actionPiece.side);
-                                                p.chessPiecePosition = move.actionPiece.chessPiecePosition;
-                                                move.actionPiece = p;
-                                            }
+                                            SetPromote(move);
                                         }
 
 
@@ -295,16 +292,7 @@ namespace GUI
                                         //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                         if (move.IsPromote())
                                         {
-                                            PromotionForm f = new PromotionForm();
-                                            f.SetIconImage(move.actionPiece.side);
-                                            f.ShowDialog();
-                                            if (f.DialogResult == DialogResult.OK)
-                                            {
-                                                //set lai con tot vua di la con duoc chon tu bang phong chuc.
-                                                ChessPieces p = f.GetChessPiece(move.actionPiece.side);
-                                                p.chessPiecePosition = move.actionPiece.chessPiecePosition;
-                                                move.actionPiece = p;
-                                            }
+                                        SetPromote(move);
                                         }
 
 
@@ -335,7 +323,7 @@ namespace GUI
                                         //su dung timer kiem tra de xem da thuc hien move
 
                                         Mode1AndMode2.moveLAN = new Point(move.actionPiece.chessPiecePosition,move.destination);
-                                        checkmove++;
+                                        CellGui.checkmove++;
                                         break;
                                     }
 
@@ -396,7 +384,7 @@ namespace GUI
             //neu o dang co quan co chiem giu thi moi can set
             if(this.board.boardLogic.GetCell(this.IDCellGui).Occupied())
             {
-                ChessPieces piece = board.boardLogic.GetPiece(this.IDCellGui);
+                ChessPieces piece = (ChessPieces) board.boardLogic.GetCell(this.IDCellGui).GetChessPieces().Clone();
                 string side = piece.side == ChessPieceSide.BLACK ? "black" : "white";
                 string name = piece.chessPieceType.chessPieceName;
                 string imagePath = Application.StartupPath + "\\ChessPieceIcon\\" + side + name + ".png";

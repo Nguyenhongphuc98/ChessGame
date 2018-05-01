@@ -17,7 +17,7 @@ namespace ObjectGame
 
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new Rook(this.chessPiecePosition, this.chessPieceType, this.side);
         }
 
         public override List<Move> getLegalMoves(Board board)

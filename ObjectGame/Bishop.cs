@@ -16,7 +16,7 @@ namespace ObjectGame
 
         public override object Clone()
         {
-            throw new NotImplementedException();
+            return new Bishop(this.chessPiecePosition, this.chessPieceType, this.side);
         }
 
         /// <summary>

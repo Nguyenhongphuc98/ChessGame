@@ -21,7 +21,7 @@ namespace GUI
 
         public BoardGui(ChessPieceSide sidePlayFirst) : base()
         {
-            boardLogic = new Board(sidePlayFirst);
+            this.boardLogic = new Board(sidePlayFirst);
             moveHistory = new MoveHistory();
 
             this.CellSelectedFirst = this.CellSelectedSecond = null;
@@ -33,7 +33,7 @@ namespace GUI
             this.Location = new Point(90, 40);
             this.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
-            listCellGui = new List<CellGui>();
+            this.listCellGui = new List<CellGui>();
             AddCellGuiAndCell();
         }
 
@@ -41,19 +41,21 @@ namespace GUI
         {
             // if(listCellGui!=null) listCellGui.Clear();
             this.Controls.Clear();
-            if(listCellGui!=null) listCellGui.Clear();
+            if(listCellGui!=null)
+                this.listCellGui.Clear();
+
             for (int i = 0; i < 64; i++)
             {
                 CellGui cell = new CellGui(this, i);
                 this.Controls.Add(cell, i % 8, i / 8);
-                listCellGui.Add(cell);
+                this.listCellGui.Add(cell);
             }
             this.Refresh();
         }
 
         public CellGui GetCellGui(int id)
         {
-            return listCellGui[id];
+            return this.listCellGui[id];
         }
 
         public void Undo()
