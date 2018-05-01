@@ -73,6 +73,7 @@ namespace GUI
 
         private void CellGui_MouseClick(object sender, MouseEventArgs e)
         {
+           // MessageBox.Show(this.IDCellGui + "");
             if (e.Button == MouseButtons.Left)
             {
 
@@ -119,9 +120,9 @@ namespace GUI
 
                             foreach (Move move in listMove)
                             {
-                                if (move.destination == this.board.CellSelectedSecond.iPosition)
-                                {
-
+                               // MessageBox.Show(move.destination.ToString() + ". o click:" + this.IDCellGui);
+                                if (move.destination == this.IDCellGui)
+                                {             
                                     //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                     if (move.IsPromote())
                                     {
@@ -146,7 +147,7 @@ namespace GUI
 
                                     //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
                                     this.board.GetCellGui(this.board.CellSelectedFirst.iPosition).SetImageIcon();
-                                    this.board.GetCellGui(this.board.CellSelectedSecond.iPosition).SetImageIcon();
+                                    this.board.GetCellGui(this.IDCellGui).SetImageIcon();
 
                                     //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
                                     this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
@@ -251,9 +252,9 @@ namespace GUI
                     if (Mode1AndMode2.modeplay == 3)
                 {
                     //chi cho phep danh con co cua no( tren ban co no)
-                    //if((Mode1AndMode2.namePlayer == "Player black"&&this.board.boardLogic.Curentlayer.sideplayer==ChessPieceSide.BLACK)
-                    //    ||(Mode1AndMode2.namePlayer == "Player white" && this.board.boardLogic.Curentlayer.sideplayer == ChessPieceSide.WHITE))
-                    //{
+                    if((Mode1AndMode2.namePlayer == "Player black"&&this.board.boardLogic.Curentlayer.sideplayer==ChessPieceSide.BLACK)
+                        ||(Mode1AndMode2.namePlayer == "Player white" && this.board.boardLogic.Curentlayer.sideplayer == ChessPieceSide.WHITE))
+                    {
                         #region che do mode 3- danh LAN
 
                         //neu day la chon o dau tien
@@ -284,11 +285,15 @@ namespace GUI
                                 List<Move> listMove = new List<ObjectGame.Move>();
                                 listMove = this.board.CellSelectedFirst.GetChessPieces().getLegalMoves(this.board.boardLogic);
 
+
+                                
                                 foreach (Move move in listMove)
                                 {
-                                    if (move.destination == this.board.CellSelectedSecond.iPosition)
+                                  //  MessageBox.Show(move.destination.ToString() + ". o click:" + this.board.CellSelectedSecond.iPosition.ToString());
+                                    // if (move.destination == this.board.CellSelectedSecond.iPosition)
+                                    if (move.destination == this.IDCellGui)
                                     {
-
+                                        
                                         //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                         if (move.IsPromote())
                                         {
@@ -313,7 +318,7 @@ namespace GUI
 
                                         //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
                                         this.board.GetCellGui(this.board.CellSelectedFirst.iPosition).SetImageIcon();
-                                        this.board.GetCellGui(this.board.CellSelectedSecond.iPosition).SetImageIcon();
+                                        this.board.GetCellGui(this.IDCellGui).SetImageIcon();
 
                                         //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
                                         this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
@@ -332,10 +337,10 @@ namespace GUI
 
                         }
 
-                        #endregion
-                    //}
+                    #endregion
+                     }
 
-
+                   // MessageBox.Show(this.board.boardLogic.Curentlayer.sideplayer.ToString());
                 }
 
 
@@ -347,7 +352,7 @@ namespace GUI
         /// </summary>
         private void CheckToHilightMove()
         {
-            // lay cell vaf quan co nay ra de kiem tra
+            // lay cell va quan co nay ra de kiem tra
             this.board.CellSelectedFirst = this.board.boardLogic.GetCell(this.IDCellGui);
             this.board.workingPiece = this.board.CellSelectedFirst.GetChessPieces();
 

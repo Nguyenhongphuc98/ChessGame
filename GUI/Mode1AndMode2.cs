@@ -45,21 +45,15 @@ namespace GUI
 
         }
 
-        public void ResetGame()
-        {
-            //chuc nang nay can fix bug haha. tu tu se xong thoi
-            this.boardGui.boardLogic.CreateDefaultListPieceBoard();
-            this.boardGui.boardLogic.CreateCellBoard(ChessPieceSide.WHITE);
-            this.boardGui.AddCellGuiAndCell();
-
-            //reset lai lich su. ahihi
-            BoardGui.moveHistory.ListMoveHistory.Clear();
-        }
-
-
 
         private void reSetGameToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.RESET, "", new Point(0, 0));
+                socket.Send(data);
+            }
+
             ResetGame();
         }
 
@@ -68,7 +62,15 @@ namespace GUI
             if (Mode1AndMode2.status_game == statusGame.EndGame)
             {
                 Mode1AndMode2.status_game = statusGame.ContinueGame;
+
+                if (Mode1AndMode2.modeplay == 3)
+                {
+                    SocketData data = new SocketData((int)TypeData.RESET, "", new Point(0, 0));
+                    socket.Send(data);
+                }
+
                 ResetGame();
+
             }
 
         }
@@ -109,10 +111,50 @@ namespace GUI
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.UNDO, "", new Point(0, 0));
+                socket.Send(data);
+            }
             this.boardGui.Undo();
         }
 
-        #region Update listView when chating
+
+        #region Update when resetgame
+        delegate void updateResetGame(Form form);
+        private void UpdateReset(Form form)
+        {
+            if (lvChat.InvokeRequired)
+            {
+                // this is worker thread
+                updateResetGame del = new updateResetGame(UpdateReset);
+                form.Invoke(del, new object[] { form });
+            }
+            else
+            {
+                // this is UI thread
+                //chuc nang nay can fix bug haha. tu tu se xong thoi
+                this.boardGui.boardLogic.CreateDefaultListPieceBoard();
+                this.boardGui.boardLogic.CreateCellBoard(ChessPieceSide.WHITE);
+                this.boardGui.AddCellGuiAndCell();
+
+                //reset lai lich su. ahihi
+                BoardGui.moveHistory.ListMoveHistory.Clear();
+            }
+        }
+        #endregion
+        public void ResetGame()
+        {
+            //chuc nang nay can fix bug haha. tu tu se xong thoi
+            this.boardGui.boardLogic.CreateDefaultListPieceBoard();
+            this.boardGui.boardLogic.CreateCellBoard(ChessPieceSide.WHITE);
+            this.boardGui.AddCellGuiAndCell();
+
+            //reset lai lich su. ahihi
+            BoardGui.moveHistory.ListMoveHistory.Clear();
+        }
+
+        #region Update listView when chating LAN
         delegate void updateListViewTextDelegate(ListViewItem lvi);
         private void UpdateListView(ListViewItem lvi)
         {
@@ -131,6 +173,7 @@ namespace GUI
         #endregion
 
 
+        #region Update board when move to LAN
         delegate void updateExcuteLANDelegate(Form form);
         private void ExcuteMoveLAN(Form form)
         {
@@ -145,18 +188,31 @@ namespace GUI
                 // this is UI thread
                 Point position = Mode1AndMode2.moveLAN; // x la diem dau- y la diem den
                 ChessPieces piece =(ChessPieces) this.boardGui.boardLogic.GetCell(position.X).GetChessPieces().Clone();
-              //  MessageBox.Show(piece.chessPieceType.chessPieceName);
-                Move move = new NormalMove(piece, position.Y);
+                //  MessageBox.Show(piece.chessPieceType.chessPieceName);
+
+                Cell cell = this.boardGui.boardLogic.GetCell(position.Y);
+                Move move;
+
+                if (cell.Occupied())
+                     move = new AttackMove(piece, position.Y, cell.GetChessPieces());
+                else
+                     move = new NormalMove(piece, position.Y);
+
+                    
                 
 
                 CellGui cellG = this.boardGui.GetCellGui(position.X);
 
-                /* khong can thiet, cainay chi cap nhat game thoi ma, chi can hien ben nguoi choi duoc roi
+               // khong can thiet, cainay chi cap nhat game thoi ma, chi can hien ben nguoi choi duoc roi
                 if (move.IsPromote())
                 {
                     cellG.SetPromote(move);
+
+                    //set lai icon cho ben nay-ban chat la phia ben nay board logic khong co con nay
+                    //nhung chi co ben kia duoc di nen khong sao het- danh lua nguoi choi.
+
                 }
-                */
+
 
                 this.boardGui.boardLogic = move.ExcuteMove(this.boardGui.boardLogic);
                 BoardGui.moveHistory.ListMoveHistory.Add(move);
@@ -172,35 +228,66 @@ namespace GUI
 
                 //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
                 this.boardGui.CellSelectedFirst = this.boardGui.CellSelectedSecond = null;
-               // this.boardGui.boardLogic.SetNextPlayer();
+                this.boardGui.boardLogic.SetNextPlayer();
             }
            
         }
+        #endregion
 
+        #region Update board when UNDO to LAN
+        delegate void updateUndoLANDelegate(Form form);
+        private void ExcuteUndoLAN(Form form)
+        {
+            if (form.InvokeRequired)
+            {
+                // this is worker thread
+                updateUndoLANDelegate del = new updateUndoLANDelegate(ExcuteUndoLAN);
+                form.Invoke(del, new object[] { form });
+            }
+            else
+            {
+                // this is UI thread
+
+                if (BoardGui.moveHistory.GetNearestMove() != null)
+                {
+                    this.boardGui.boardLogic = BoardGui.moveHistory.Undo(this.boardGui.boardLogic);
+                    this.boardGui.listCellGui[BoardGui.moveHistory.GetNearestMove().actionPiece.chessPiecePosition].SetImageIcon();
+                    this.boardGui.listCellGui[BoardGui.moveHistory.GetNearestMove().destination].SetImageIcon();
+                    BoardGui.moveHistory.RemoveHistoryForThisMove();
+                    this.boardGui.boardLogic.SetNextPlayer();
+                }     
+            }
+
+        }
+        #endregion
 
         void Listen()
         {
             SocketData data = (SocketData)socket.Receive();
-            //MessageBox.Show("da nhan  "+data.flag);
+
             switch (data.flag)
             {
                 case (int)TypeData.GUI_TIN:
                     ListViewItem lvi = new ListViewItem(data.message);
-                    //lvChat.Items.Add(lvi);
                     UpdateListView(lvi);                 
                     break;
 
                 case (int)TypeData.MOVE:
-                    // ListViewItem lvii = new ListViewItem(data.move.X + "->" + data.move.Y);
-                    // UpdateListView(lvii);
                     Mode1AndMode2.moveLAN = data.move;
                     ExcuteMoveLAN(this);
                     break;
 
                 case (int)TypeData.START:
-                   // MessageBox.Show("ok");
-                    StartGame(ChessPieceSide.BLACK);
-                    
+                    StartGame(ChessPieceSide.WHITE); 
+                    break;
+
+                case (int)TypeData.RESET:
+                    // ResetGame();
+                    UpdateReset(this);
+                    break;
+
+                case (int)TypeData.UNDO:
+                    ExcuteUndoLAN(this);
                     break;
             }
 

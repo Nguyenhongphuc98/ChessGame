@@ -70,6 +70,7 @@ namespace GUI
                 this.listCellGui[BoardGui.moveHistory.GetNearestMove().actionPiece.chessPiecePosition].SetImageIcon();
                 this.listCellGui[BoardGui.moveHistory.GetNearestMove().destination].SetImageIcon();
                 BoardGui.moveHistory.RemoveHistoryForThisMove();
+                this.boardLogic.SetNextPlayer();
             }
 
         }

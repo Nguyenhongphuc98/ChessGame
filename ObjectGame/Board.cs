@@ -45,6 +45,7 @@ namespace ObjectGame
         {
            // this.ListChessPiece[piece.chessPiecePosition] = null;
             this.ListChessPiece.Remove(piece.chessPiecePosition);
+            this.ListChessPiece[piece.chessPiecePosition]=null;
             return this;
         }
 

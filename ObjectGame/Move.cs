@@ -69,7 +69,7 @@ namespace ObjectGame
             board.listCell[this.GetCurrentPosition()] = new EmptyCell(this.GetCurrentPosition());
             board.listCell[this.destination] = new OccupiedCell(this.destination,piece);
 
-            //theo doi quan co tren liss piece
+            //theo doi quan co tren list piece
             board.SetPiece(piece);
             board.RemovePiece(this.actionPiece);
 
