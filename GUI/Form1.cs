@@ -21,14 +21,34 @@ namespace GUI
 
         private void btn2Player_Click(object sender, EventArgs e)
         {
-            Mode1AndMode2 mode12 = new Mode1AndMode2();
-            mode12.Show();
-            this.Hide();
+            int mode = 1;
+            Mode1AndMode2 mode12 = new Mode1AndMode2(mode);
+            //this.Hide();
+            mode12.ShowDialog();
+            //this.Show();
         }
 
         private void pbClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnDanhVoiMay_Click(object sender, EventArgs e)
+        {
+            int mode = 2;
+            Mode1AndMode2 mode12 = new Mode1AndMode2(mode);
+            this.Hide();
+            mode12.Show();
+           // this.Show();
+        }
+
+        private void bunifuFlatButton2_Click(object sender, EventArgs e)
+        {
+            int mode = 3;
+            Mode1AndMode2 mode12 = new Mode1AndMode2(mode);
+            this.Hide();
+            mode12.ShowDialog();
+            this.Show();
         }
     }
 }

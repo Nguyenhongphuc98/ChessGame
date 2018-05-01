@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace ObjectGame
         public Dictionary<int, ChessPieces> ListChessPiece;
         public ChessPieceSide nextMoveChessPieceSide;
         public List<Cell> listCell;
+
 
 
         public Board(ChessPieceSide sidePlayFirst)

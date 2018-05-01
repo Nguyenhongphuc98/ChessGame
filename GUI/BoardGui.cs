@@ -60,7 +60,7 @@ namespace GUI
         {
             
 
-            //set lai icon tren cellGui neu co byoc di truoc do
+            //set lai icon tren cellGui neu co buoc di truoc do
             //neu chua di cai nao thi bo tay. khong the undo
             if(BoardGui.moveHistory.GetNearestMove()!=null)
             {

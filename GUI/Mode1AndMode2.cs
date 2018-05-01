@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ObjectGame;
+using System.Threading;
+using static System.Net.WebRequestMethods;
 
 namespace GUI
 {
@@ -16,14 +18,29 @@ namespace GUI
     {
         BoardGui boardGui;
         public static statusGame status_game = statusGame.ContinueGame;
+        SocketManager socket;
+        public static string namePlayer;
+        public static int modeplay;
 
-        public Mode1AndMode2()
+        public static int checkmove = 0; //de kiem tra coi da di nuoc co hay khong, pahi thi gui qua LAN
+        public static Point moveLAN = new Point(0, 0);
+        //chua diem dau va diem cuoi cua nuoc co vua di
+
+        public Mode1AndMode2(int mode)
         {
+           // System.Windows.Forms.Control.CheckForIllegalCrossT hreadCalls = File;
             InitializeComponent();
-            boardGui = new BoardGui(ChessPieceSide.WHITE);
-            this.Controls.Add(boardGui);
-            timerCheckEndGame.Start();
+            modeplay = mode;
 
+            //che do danh 2 nguoi 1 may hoac danh voi may thi !enable khung chat
+            if (Mode1AndMode2.modeplay == 1 || Mode1AndMode2.modeplay == 2)
+                this.lvChat.Enabled = btnSendMessage.Enabled = tbmess.Enabled = false;
+            else
+                //nguoc lai la danh qua LAN
+                timerCheckMove.Start();
+
+
+            socket = new SocketManager();
         }
 
         public void ResetGame()
@@ -67,9 +84,9 @@ namespace GUI
                     MessageBox.Show(" time up - Black Win!!!");
                     ResetGame();
                     timerProcessbarPlayer.Start();
-                    
+
                 }
-                    
+
             }
             else
             {
@@ -84,13 +101,161 @@ namespace GUI
                     timerProcessbarPlayer.Start();
 
                 }
-                  
+
             }
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.boardGui.Undo();
+        }
+
+        #region Update listView when chating
+        delegate void updateListViewTextDelegate(ListViewItem lvi);
+        private void UpdateListView(ListViewItem lvi)
+        {
+            if (lvChat.InvokeRequired)
+            {
+                // this is worker thread
+                updateListViewTextDelegate del = new updateListViewTextDelegate(UpdateListView);
+                lvChat.Invoke(del, new object[] { lvi });
+            }
+            else
+            {
+                // this is UI thread
+                lvChat.Items.Add(lvi);
+            }
+        }
+        #endregion
+
+        
+        void Listen()
+        {
+            SocketData data = (SocketData)socket.Receive();
+            MessageBox.Show("da nhan  "+data.flag);
+            switch (data.flag)
+            {
+                case (int)TypeData.GUI_TIN:
+                    ListViewItem lvi = new ListViewItem(data.message);
+                    //lvChat.Items.Add(lvi);
+                    UpdateListView(lvi);                 
+                    break;
+
+                case (int)TypeData.MOVE:
+                    ListViewItem lvii = new ListViewItem(data.move.X + "->" + data.move.Y);
+                    lvChat.Items.Add(lvii);
+                    break;
+
+                case (int)TypeData.START:
+                   // MessageBox.Show("ok");
+                    StartGame(ChessPieceSide.BLACK);
+                    
+                    break;
+            }
+
+
+        }
+
+        private void btnSendMessage_Click(object sender, EventArgs e)
+        {
+            if (btnSendMessage.Text == "Kết nối")
+            {
+                btnSendMessage.Text = "Gửi tin";
+
+                socket.IP = tbmess.Text;
+                Mode1AndMode2.namePlayer = "Player black";
+                if (!socket.ConnectServer())
+                {
+                    socket.CreateServer();
+                    Mode1AndMode2.namePlayer = "Player white";
+                }
+
+
+                Thread listenThread = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(500);
+                        try
+                        {
+                            Listen();
+                           // break;
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                });
+                listenThread.IsBackground = true;
+                listenThread.Start();
+            }
+            else
+            {
+                string mess = Mode1AndMode2.namePlayer + " : " + tbmess.Text;
+                ListViewItem lvi = new ListViewItem(mess);
+                lvChat.Items.Add(lvi);
+                SocketData data = new SocketData((int)TypeData.GUI_TIN, mess, Mode1AndMode2.moveLAN);
+                socket.Send(data);
+                tbmess.Clear();
+            }
+
+        }
+
+        private void Mode1AndMode2_Load(object sender, EventArgs e)
+        {
+            tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
+            if (string.IsNullOrEmpty(tbmess.Text))
+            {
+                tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
+            }
+        }
+
+        #region Update boardgame when start game
+        delegate void updateBoardDelegate(Label lb,BoardGui boardGui,ChessPieceSide side);
+        private void UpdateBoardeGui(Label lb, BoardGui boardGui, ChessPieceSide side)
+        {
+            if (lbPlay.InvokeRequired)
+            {
+                // this is worker thread
+                updateBoardDelegate del = new updateBoardDelegate(UpdateBoardeGui);
+                lvChat.Invoke(del, new object[] { lb,boardGui,side });
+            }
+            else
+            {
+                // this is UI thread
+                lbPlay.Visible = false;
+                boardGui = new BoardGui(side);
+                this.Controls.Add(boardGui);
+            }
+        }
+        #endregion
+        void StartGame(ChessPieceSide side)
+        {
+            //lbPlay.Visible = false;
+            UpdateBoardeGui(lbPlay,boardGui,side);
+            timerCheckEndGame.Start();
+            //timerProcessbarPlayer.Start();
+
+        }
+        private void lbPlay_Click(object sender, EventArgs e)
+        {
+            SocketData data = new SocketData((int)TypeData.START, "start", Mode1AndMode2.moveLAN);
+            socket.Send(data);
+
+            StartGame(ChessPieceSide.WHITE);
+            // MessageBox.Show("da send click");
+        }
+
+        private void timerCheckMove_Tick(object sender, EventArgs e)
+        {
+            //neu co su di chuyen
+            if (CellGui.checkmove != Mode1AndMode2.checkmove)
+            {
+                Mode1AndMode2.checkmove = CellGui.checkmove;
+                SocketData data = new SocketData((int)TypeData.MOVE, "di chuyen", Mode1AndMode2.moveLAN);
+                socket.Send(data);
+            }
         }
     }
 

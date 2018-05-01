@@ -11,7 +11,7 @@ namespace ObjectGame
         EndGame,
         ContinueGame
     }
-    public abstract class Move
+    public  class Move
     {
         public ChessPieces actionPiece { get; set; }
         public int destination { get; set; }
