@@ -116,7 +116,7 @@ namespace GUI
             else if (choosed == 2)
                 return new Queen(1, ChessPieceType.QUEEN, s);
 
-            else if (choosed == 2)
+            else if (choosed == 3)
                 return new Bishop(1, ChessPieceType.BISHOP, s);
 
             else

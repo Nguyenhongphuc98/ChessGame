@@ -15,6 +15,8 @@ namespace ObjectGame
     {
         public ChessPieces actionPiece { get; set; }
         public int destination { get; set; }
+        public bool chieuTuong = false;
+        public string WinGame = null;
         
 
 
@@ -55,7 +57,8 @@ namespace ObjectGame
             if (TheKingDie(board))
             {
                 string slide = (board.Curentlayer.sideplayer == ChessPieceSide.BLACK) ? " Black Win!!!" : "White Win!!!";
-                MessageBox.Show(slide);
+                // MessageBox.Show(slide);
+                this.WinGame = slide;
                 //se kiem tra o phia ngoai form Chinh de load lai ban co nua
                 //o trong nay khong the goi toi ham resetGame. kho haha
 
@@ -109,7 +112,8 @@ namespace ObjectGame
             {
                 if (m.destination == king.chessPiecePosition)
                 {
-                    MessageBox.Show("Chiếu tướng. hahahaa !!!");
+                    // MessageBox.Show("Chiếu tướng. hahahaa !!!");
+                    this.chieuTuong = true;
                     break;
                 }
             }

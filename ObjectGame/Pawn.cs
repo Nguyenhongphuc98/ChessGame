@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ObjectGame
 {
@@ -55,19 +56,33 @@ namespace ObjectGame
                 }
 
                 //neu co quan dich nam cheo sat 1 ben thi co the tan cong
-                if ((argument == 9 && board.GetCell(checkPosition).Occupied())||
-                    (argument == 7 && board.GetCell(checkPosition).Occupied()))
-                {
-                        ChessPieces occupiedPiece = board.GetCell(checkPosition).GetChessPieces();
+                //neu nhu khong vi pham nguyen tac di chuyen
+                if (((argument == 9 && CheckArgument9())||argument==7 &&CheckArgument7())
+                    && board.GetCell(checkPosition).Occupied())
+                { 
+                    ChessPieces occupiedPiece = board.GetCell(checkPosition).GetChessPieces();
                     if (occupiedPiece.side != this.side)
                     {
-
                         ListCanMove.Add(new AttackMove(this, checkPosition, occupiedPiece));
+                        //MessageBox.Show("attack");
                     }
                 }
 
             }
+
             return ListCanMove;
+        }
+
+        bool CheckArgument9()
+        {
+            return !((this.chessPiecePosition % 8 == 7 && this.side == ChessPieceSide.BLACK) ||
+                (this.chessPiecePosition % 8 == 0 && this.side == ChessPieceSide.WHITE));
+        }
+
+        bool CheckArgument7()
+        {
+            return !((this.chessPiecePosition % 8 == 0 && this.side == ChessPieceSide.BLACK) ||
+                    (this.chessPiecePosition % 8 == 7 && this.side == ChessPieceSide.WHITE));
         }
 
         public override ChessPieces movePiece(Move move)

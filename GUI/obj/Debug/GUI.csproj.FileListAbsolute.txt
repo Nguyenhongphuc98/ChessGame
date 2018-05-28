@@ -23,3 +23,5 @@ C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj\Debug\GUI.Properties.Resources.resources
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj\Debug\GUI.PromotionForm.resources
+C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj\Debug\Interop.WMPLib.dll
+C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\GUI\obj\Debug\GUI.csproj.ResolveComReference.cache

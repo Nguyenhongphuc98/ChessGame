@@ -1,24 +1,21 @@
 ﻿using ObjectGame;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ObjectGame;
+//using ObjectGame;
 using System.Threading;
-using static System.Net.WebRequestMethods;
+using WMPLib;
+//using System.Windows.Forms.Progcessbar;
 
 namespace GUI
 {
     public partial class Mode1AndMode2 : Form
     {
+        #region Thuoc tinh chung
         BoardGui boardGui;
-        public static statusGame status_game = statusGame.ContinueGame;
         SocketManager socket;
+        public static statusGame status_game = statusGame.ContinueGame;
+        
         public static string namePlayer;
         public static int modeplay;
 
@@ -26,6 +23,12 @@ namespace GUI
         public static Point moveLAN = new Point(0, 0);
         //chua diem dau va diem cuoi cua nuoc co vua di
 
+        // nhac nen
+        WindowsMediaPlayer soundBackground = new WindowsMediaPlayer();
+        WindowsMediaPlayer soundClick = new WindowsMediaPlayer();
+        #endregion
+
+        #region Khoi tao form cung che do choi va nhac
         public Mode1AndMode2(int mode)
         {
            // System.Windows.Forms.Control.CheckForIllegalCrossT hreadCalls = File;
@@ -43,9 +46,12 @@ namespace GUI
                 socket = new SocketManager();
             }
 
+            soundBackground.URL = Application.StartupPath + "\\BackgroundMusic.mp3";
+            soundBackground.controls.play();
         }
+        #endregion
 
-
+        #region reset lai game khi nhan toolstrip menu
         private void reSetGameToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (Mode1AndMode2.modeplay == 3)
@@ -56,7 +62,9 @@ namespace GUI
 
             ResetGame();
         }
+        #endregion
 
+        #region timer kiem tra ket thuc game
         private void timerCheckEndGame_Tick(object sender, EventArgs e)
         {
             if (Mode1AndMode2.status_game == statusGame.EndGame)
@@ -74,14 +82,16 @@ namespace GUI
             }
 
         }
+        #endregion
 
+        #region timer kiem tra nguoi choi hien tai cho thanh procesbar
         private void timerProcessbarPlayer_Tick(object sender, EventArgs e)
         {
             if (boardGui.boardLogic.Curentlayer.sideplayer == ChessPieceSide.WHITE)
             {
-                progressBar2.Value = 100;
-                if (progressBar1.Value != 0) // player 1 la trang
-                    progressBar1.Value -= 1;
+                proBlack.Value = 100;
+                if (proWhite.Value != 0) // player 1 la trang
+                    proWhite.Value -= 1;
                 else
                 {
                     timerProcessbarPlayer.Stop();
@@ -94,9 +104,9 @@ namespace GUI
             }
             else
             {
-                progressBar1.Value = 100;
-                if (progressBar2.Value != 0) // player 1 la trang
-                    progressBar2.Value -= 1;
+                proWhite.Value = 100;
+                if (proBlack.Value != 0) // player 2 la den
+                    proBlack.Value -= 1;
                 else
                 {
                     timerProcessbarPlayer.Stop();
@@ -108,7 +118,9 @@ namespace GUI
 
             }
         }
+        #endregion
 
+        #region undo khi click toolstrip menu
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Mode1AndMode2.modeplay == 3)
@@ -118,7 +130,7 @@ namespace GUI
             }
             this.boardGui.Undo();
         }
-
+        #endregion
 
         #region Update when resetgame
         delegate void updateResetGame(Form form);
@@ -261,6 +273,28 @@ namespace GUI
         }
         #endregion
 
+        #region Update processbar when stargame LAN
+        delegate void updateProcessBarDelegate(ProgressBar pro);
+        private void updateProcessBar(ProgressBar pro)
+        {
+            if (proWhite.InvokeRequired)
+            {
+                // this is worker thread
+                updateProcessBarDelegate del = new updateProcessBarDelegate(updateProcessBar);
+                proWhite.Invoke(del, new object[] { pro });
+            }
+            else
+            {
+                // this is UI thread
+                // proWhite.sta
+                timerProcessbarPlayer.Start();
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Lắng nghe và cập nhật game đối với chơi LAN
+        /// </summary>
         void Listen()
         {
             SocketData data = (SocketData)socket.Receive();
@@ -278,6 +312,7 @@ namespace GUI
                     break;
 
                 case (int)TypeData.START:
+                    updateProcessBar(proWhite);
                     StartGame(ChessPieceSide.WHITE); 
                     break;
 
@@ -294,6 +329,11 @@ namespace GUI
 
         }
 
+        /// <summary>
+        /// Gửi tin khi nhấn nút send ( LAN)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendMessage_Click(object sender, EventArgs e)
         {
             if (btnSendMessage.Text == "Kết nối")
@@ -340,6 +380,11 @@ namespace GUI
 
         }
 
+        /// <summary>
+        /// Load ip 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Mode1AndMode2_Load(object sender, EventArgs e)
         {
             if (Mode1AndMode2.modeplay == 3)
@@ -349,23 +394,23 @@ namespace GUI
                 {
                     tbmess.Text = socket.GetLocalIPv4(System.Net.NetworkInformation.NetworkInterfaceType.Wireless80211);
                 }
-            }            
+            }        
         }
 
         #region Update boardgame when start game
-        delegate void updateBoardDelegate(Label lb,BoardGui boardGui,ChessPieceSide side);
-        private void UpdateBoardeGui(Label lb, BoardGui boardGui, ChessPieceSide side)
+        delegate void updateBoardDelegate(Button lb, BoardGui boardGui, ChessPieceSide side);
+        private void UpdateBoardeGui(Button lb, BoardGui boardGui, ChessPieceSide side)
         {
-            if (lbPlay.InvokeRequired)
+            if (btnPlay.InvokeRequired)
             {
                 // this is worker thread
                 updateBoardDelegate del = new updateBoardDelegate(UpdateBoardeGui);
-                lvChat.Invoke(del, new object[] { lb,boardGui,side });
+                lvChat.Invoke(del, new object[] { lb, boardGui, side });
             }
             else
             {
                 // this is UI thread
-                lbPlay.Visible = false;
+                btnPlay.Visible = false;
                 boardGui = new BoardGui(side);
                 this.Controls.Add(boardGui);
                 this.boardGui = boardGui;
@@ -376,23 +421,17 @@ namespace GUI
         void StartGame(ChessPieceSide side)
         {
             //lbPlay.Visible = false;
-            UpdateBoardeGui(lbPlay,boardGui,side);
+            UpdateBoardeGui(btnPlay,boardGui,side);
             timerCheckEndGame.Start();
-            //timerProcessbarPlayer.Start();
+
+            if (modeplay == 2)
+                return;
+            timerProcessbarPlayer.Start();
 
         }
+
         private void lbPlay_Click(object sender, EventArgs e)
         {
-            //neu dang o che do danh qua LAN thu truyen cho ben kia biet da bat dau
-            if (Mode1AndMode2.modeplay == 3)
-            {
-                SocketData data = new SocketData((int)TypeData.START, "start", Mode1AndMode2.moveLAN);
-                socket.Send(data);
-            }
-           
-
-            StartGame(ChessPieceSide.WHITE);
-            // MessageBox.Show("da send click");
 
         }
 
@@ -405,6 +444,76 @@ namespace GUI
                 SocketData data = new SocketData((int)TypeData.MOVE, "di chuyen", Mode1AndMode2.moveLAN);
                 socket.Send(data);
             }
+        }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.UNDO, "", new Point(0, 0));
+                socket.Send(data);
+            }
+            this.boardGui.Undo();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.RESET, "", new Point(0, 0));
+                socket.Send(data);
+            }
+
+            ResetGame();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            //neu dang o che do danh qua LAN thu truyen cho ben kia biet da bat dau
+            if (Mode1AndMode2.modeplay == 3)
+            {
+                SocketData data = new SocketData((int)TypeData.START, "start", Mode1AndMode2.moveLAN);
+                socket.Send(data);
+            }
+
+
+            StartGame(ChessPieceSide.WHITE);
+            // MessageBox.Show("da send click");
+          
+            btnPlay.Visible = false;
+            //danh voi may thi khong can xai processbar player
+            //if (modeplay == 2)
+            //    return;
+            //timerProcessbarPlayer.Start();
+        }
+
+        bool IsPlaingMusic = true;
+        private void pbSound_Click(object sender, EventArgs e)
+        {
+            pbSound.BackColor = Color.Transparent;
+            if (IsPlaingMusic)
+            {
+                pbSound.BackgroundImage = Image.FromFile("stopSound.png");
+                IsPlaingMusic = false;
+                soundBackground.controls.pause();
+            }
+            else
+            {
+                pbSound.BackgroundImage = Image.FromFile("playSound.png");
+                IsPlaingMusic = true;
+                soundBackground.controls.play();
+            }
+          
+        }
+
+        private void Mode1AndMode2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            soundBackground.controls.stop();
         }
     }
 

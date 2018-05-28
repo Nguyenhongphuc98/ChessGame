@@ -50,6 +50,7 @@
     <Compile Include="EmptyCell.cs" />
     <Compile Include="King.cs" />
     <Compile Include="Knight.cs" />
+    <Compile Include="Machine.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MoveHistory.cs" />
     <Compile Include="OccupiedCell.cs" />

@@ -11,11 +11,13 @@ namespace GUI
 {
     class BoardGui: TableLayoutPanel
     {
+        #region thuoc tinh chung
         public List<CellGui> listCellGui { get; set; }
         public Cell CellSelectedFirst { get; set; }
         public Cell CellSelectedSecond { get; set; }
         public Board boardLogic { get; set; }
         public static MoveHistory moveHistory;
+        #endregion
 
         public ChessPieces workingPiece { get; set; }
 
@@ -30,7 +32,7 @@ namespace GUI
 
 
             this.Size = new Size(538, 538);
-            this.Location = new Point(90, 40);
+            this.Location = new Point(250, 40);
             this.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
             this.listCellGui = new List<CellGui>();

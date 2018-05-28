@@ -37,8 +37,8 @@ namespace GUI
         {
             int mode = 2;
             Mode1AndMode2 mode12 = new Mode1AndMode2(mode);
-            this.Hide();
-            mode12.Show();
+            //this.Hide();
+            mode12.ShowDialog();
            // this.Show();
         }
 

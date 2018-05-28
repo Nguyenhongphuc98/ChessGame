@@ -146,5 +146,30 @@ namespace ObjectGame
         {
             return (position > -1 && position < 64);
         }
+
+        public Board Clone()
+        {
+
+            Board board = new Board(Curentlayer.sideplayer);
+            board.Blacklayer=this.Blacklayer;
+            board.Whitelayer=this.Whitelayer;
+            board.Curentlayer=this.Curentlayer;
+            board.nextMoveChessPieceSide = this.nextMoveChessPieceSide;
+
+            for (int i = 0; i < 64; i++)
+            {
+                ChessPieces piece = this.GetPiece(i);
+                if (piece != null)
+                    board.SetPiece(piece);
+            }
+            
+            
+           foreach(Cell cell in this.listCell)
+            {
+                board.listCell.Add(cell);
+            }
+           
+            return board;
+    }
     }
 }

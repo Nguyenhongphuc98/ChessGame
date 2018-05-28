@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using ObjectGame;
+using WMPLib;
 
 namespace GUI
 {
@@ -19,7 +20,14 @@ namespace GUI
         public static Color activeColor { get; set; }
         public static int checkmove=0; //neu khac voi move tren giao dien tuc la da thay doi -> gui socket
 
+        WindowsMediaPlayer soundClick = new WindowsMediaPlayer();
+        
 
+       /// <summary>
+       /// init cellGui and sound
+       /// </summary>
+       /// <param name="board"></param>
+       /// <param name="id"></param>
        public CellGui(BoardGui board,int id)
         {
             this.IDCellGui = id;
@@ -34,6 +42,9 @@ namespace GUI
             this.SetImageIcon();
 
             this.MouseClick += CellGui_MouseClick;
+
+
+            soundClick.URL = Application.StartupPath + "\\soundClick.mp3";
         }
 
         private void SetColor()
@@ -86,6 +97,10 @@ namespace GUI
 
                 this.BackColor = CellGui.activeColor;
 
+                //ChessPieces p = this.board.boardLogic.GetPiece(this.IDCellGui);
+                //if(p!=null)
+                //MessageBox.Show(p.chessPieceType.chessPieceName);
+
                 if (Mode1AndMode2.modeplay == 1)
                 {
                     #region   che do mode 1-  2player
@@ -110,6 +125,7 @@ namespace GUI
                         }
                         else
                         {
+                            soundClick.controls.play();
                             //nguoc lai lam chon thu 2 khong phai quan minh co nghia la di chuyen hoac tan cong.
                             //check xem co nam trong list di chuyen hop le khong?
 
@@ -153,6 +169,11 @@ namespace GUI
                                     this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
                                     this.board.boardLogic.SetNextPlayer();
 
+                                    if (move.chieuTuong)
+                                        MessageBox.Show("Chiếu tướng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    if (move.WinGame != null)
+                                        MessageBox.Show(move.WinGame);
+
                                     break;
                                 }
 
@@ -169,7 +190,6 @@ namespace GUI
                     if(this.board.boardLogic.Curentlayer.sideplayer==ChessPieceSide.WHITE)
                     {
                         #region che do mode 2- danh voi may
-
                         //neu day la chon o dau tien
                         if (this.board.CellSelectedFirst == null)
                         {
@@ -178,6 +198,8 @@ namespace GUI
                         //nguoc lai da chon 1 o co truoc do
                         else
                         {
+                            
+
                             this.board.CellSelectedSecond = this.board.boardLogic.GetCell(this.IDCellGui);
 
                             //neu lan chon thu 2 cung quan co voi lan thu nhat thi set lai day la lan thu nhat.
@@ -190,6 +212,8 @@ namespace GUI
                             }
                             else
                             {
+
+                                soundClick.controls.play();
                                 //nguoc lai lam chon thu 2 khong phai quan minh co nghia la di chuyen hoac tan cong.
                                 //check xem co nam trong list di chuyen hop le khong?
 
@@ -200,9 +224,9 @@ namespace GUI
 
                                 foreach (Move move in listMove)
                                 {
-                                    if (move.destination == this.board.CellSelectedSecond.iPosition)
+                                    // MessageBox.Show(move.destination.ToString() + ". o click:" + this.IDCellGui);
+                                    if (move.destination == this.IDCellGui)
                                     {
-
                                         //kiem tra xem thu co phai la phong chuc cho tot hay khong.
                                         if (move.IsPromote())
                                         {
@@ -227,15 +251,68 @@ namespace GUI
 
                                         //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
                                         this.board.GetCellGui(this.board.CellSelectedFirst.iPosition).SetImageIcon();
-                                        this.board.GetCellGui(this.board.CellSelectedSecond.iPosition).SetImageIcon();
+                                        this.board.GetCellGui(this.IDCellGui).SetImageIcon();
 
                                         //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
                                         this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
                                         this.board.boardLogic.SetNextPlayer();
 
-                                        //*******************************************
-                                        //Cho AI Danh o day *************************
-                                        //*******************************************
+                                        if (move.chieuTuong)
+                                            MessageBox.Show("Chiếu tướng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        if (move.WinGame != null)
+                                            MessageBox.Show(move.WinGame);
+
+
+                                        //*****************************************************************
+                                        //Cho AI Danh o day ***********************************************
+                                        //*****************************************************************
+                                         Machine AI = new Machine();
+                                        // Board tempBoard = new Board(ChessPieceSide.BLACK);
+                                         //tempBoard = board.boardLogic.Clone();
+                                        // Move AIMove = AI.CaculateBestMove(board.boardLogic, 3);
+                                        Move AIMove = AI.GetEasyMove(board.boardLogic);
+
+                                         //kiem tra xem thu co phai la phong chuc cho tot hay khong.
+                                        if (AIMove.IsPromote())
+                                         {
+                                             SetPromote(AIMove);
+                                         }
+
+
+
+                                         // if (board.boardLogic == tempBoard)
+                                         //    MessageBox.Show("giong nhau");
+                                         //thay doi board logic
+                                         this.board.boardLogic = AIMove.ExcuteMove(this.board.boardLogic);
+                                         foreach (CellGui cellGui in this.board.listCellGui)
+                                         {
+                                             cellGui.SetImageIcon();
+                                         }
+
+                                         //dua move vao lich su.
+                                         BoardGui.moveHistory.ListMoveHistory.Add(AIMove);
+                                         // MessageBox.Show("da them 1 move vao stack");
+
+
+                                         //kiem tra coi end game hay k
+                                         if (AIMove.TheKingDie(this.board.boardLogic))
+                                         {
+                                             Mode1AndMode2.status_game = statusGame.EndGame;
+
+                                         }
+
+                                         //set lai icon tren ban co cho nguoi xem biet duoc  da di.-> thay doi board gui
+                                         this.board.GetCellGui(AIMove.GetCurrentPosition()).SetImageIcon();
+                                         this.board.GetCellGui(AIMove.destination).SetImageIcon();
+
+                                         //reset thanh chua chon nuoc co nao va set nguoi choi tiep theo vi da danh xong nuoc co nay.
+                                         //this.board.CellSelectedFirst = this.board.CellSelectedSecond = null;
+                                         this.board.boardLogic.SetNextPlayer();
+
+                                         if (AIMove.chieuTuong)
+                                             MessageBox.Show("Chiếu tướng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                         if (AIMove.WinGame != null)
+                                             MessageBox.Show(AIMove.WinGame);
                                         break;
                                     }
 
@@ -277,6 +354,8 @@ namespace GUI
                             }
                             else
                             {
+                                soundClick.controls.play();
+
                                 //nguoc lai lam chon thu 2 khong phai quan minh co nghia la di chuyen hoac tan cong.
                                 //check xem co nam trong list di chuyen hop le khong?
 
@@ -329,6 +408,11 @@ namespace GUI
 
                                         Mode1AndMode2.moveLAN = new Point(move.actionPiece.chessPiecePosition,move.destination);
                                         CellGui.checkmove++;
+
+                                        if (move.chieuTuong)
+                                            MessageBox.Show("Chiếu tướng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        if (move.WinGame != null)
+                                            MessageBox.Show(move.WinGame);
                                         break;
                                     }
 
@@ -355,6 +439,8 @@ namespace GUI
             // lay cell va quan co nay ra de kiem tra
             this.board.CellSelectedFirst = this.board.boardLogic.GetCell(this.IDCellGui);
             this.board.workingPiece = this.board.CellSelectedFirst.GetChessPieces();
+           // if(board.workingPiece!=null)
+           // MessageBox.Show(this.board.workingPiece.chessPieceType.chessPieceName);
 
             //neu o nay khong co quan co hoac khong phai luot cua no thi khong co chon thi xem nhu chua chon
             if (this.board.workingPiece == null||this.board.workingPiece.side!=this.board.boardLogic.Curentlayer.sideplayer)
@@ -363,8 +449,13 @@ namespace GUI
 
             }
             else
-            //nguoc lai da chon o co quan co la cua minh -> hien thi cac nuoc co co the di
-            this.hightlightLegalMoves();
+            {
+                //nguoc lai da chon o co quan co la cua minh -> hien thi cac nuoc co co the di
+                this.hightlightLegalMoves();
+                soundClick.controls.play();
+            }
+           
+            
         }
 
         /// <summary>
