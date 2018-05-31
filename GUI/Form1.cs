@@ -50,5 +50,12 @@ namespace GUI
             mode12.ShowDialog();
             this.Show();
         }
+
+        private void btThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn thoát,nhấn No để ở lại!!!","Thông Báo", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if(result==DialogResult.Yes)
+            this.Close();
+        }
     }
 }

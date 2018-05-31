@@ -60,6 +60,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManHinhChinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManHinhChinh.Designer.cs">
+      <DependentUpon>ManHinhChinh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mode1AndMode2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ManHinhChinh.resx">
+      <DependentUpon>ManHinhChinh.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mode1AndMode2.resx">
       <DependentUpon>Mode1AndMode2.cs</DependentUpon>
     </EmbeddedResource>
@@ -91,6 +100,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,6 +136,15 @@
     <Content Include="Images\bacground.jpg" />
     <Content Include="Images\playSound.png" />
     <Content Include="Images\stopSound.png" />
+    <None Include="Resources\backgournd.jpg" />
+    <None Include="Resources\chess-3413412_960_720.png" />
+    <None Include="Resources\chess-black-queen-7825577.jpg" />
+    <None Include="Resources\chess_PNG84481.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\chess_PNG8448.png" />
+    <None Include="Resources\master_SAGB211.jpg" />
+    <None Include="Resources\thumb-1920-460230.png" />
+    <None Include="Resources\q-1520215610434461934295.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

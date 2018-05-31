@@ -52,6 +52,7 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.pbSound = new System.Windows.Forms.PictureBox();
+            this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.pnChat.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPlayer2)).BeginInit();
@@ -61,42 +62,30 @@
             // 
             // tbmess
             // 
-            this.tbmess.Location = new System.Drawing.Point(0, 217);
-            this.tbmess.Multiline = true;
+            resources.ApplyResources(this.tbmess, "tbmess");
             this.tbmess.Name = "tbmess";
-            this.tbmess.Size = new System.Drawing.Size(204, 59);
-            this.tbmess.TabIndex = 2;
             // 
             // pnChat
             // 
             this.pnChat.Controls.Add(this.lvChat);
             this.pnChat.Controls.Add(this.btnSendMessage);
             this.pnChat.Controls.Add(this.tbmess);
-            this.pnChat.Location = new System.Drawing.Point(836, 302);
+            resources.ApplyResources(this.pnChat, "pnChat");
             this.pnChat.Name = "pnChat";
-            this.pnChat.Size = new System.Drawing.Size(306, 276);
-            this.pnChat.TabIndex = 3;
             // 
             // lvChat
             // 
-            this.lvChat.Dock = System.Windows.Forms.DockStyle.Top;
+            resources.ApplyResources(this.lvChat, "lvChat");
             this.lvChat.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lvChat.Location = new System.Drawing.Point(0, 0);
             this.lvChat.Name = "lvChat";
-            this.lvChat.Size = new System.Drawing.Size(306, 211);
-            this.lvChat.TabIndex = 4;
             this.lvChat.UseCompatibleStateImageBehavior = false;
             this.lvChat.View = System.Windows.Forms.View.List;
             // 
             // btnSendMessage
             // 
             this.btnSendMessage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.btnSendMessage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSendMessage.Location = new System.Drawing.Point(204, 217);
+            resources.ApplyResources(this.btnSendMessage, "btnSendMessage");
             this.btnSendMessage.Name = "btnSendMessage";
-            this.btnSendMessage.Size = new System.Drawing.Size(102, 59);
-            this.btnSendMessage.TabIndex = 3;
-            this.btnSendMessage.Text = "Kết nối";
             this.btnSendMessage.UseVisualStyleBackColor = false;
             this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
             // 
@@ -104,11 +93,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1160, 24);
-            this.menuStrip1.TabIndex = 4;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // menuToolStripMenuItem
             // 
@@ -118,36 +104,29 @@
             this.toolStripMenuItem2,
             this.exitToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.menuToolStripMenuItem.Text = "Menu";
+            resources.ApplyResources(this.menuToolStripMenuItem, "menuToolStripMenuItem");
             // 
             // undoToolStripMenuItem
             // 
             this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
+            resources.ApplyResources(this.undoToolStripMenuItem, "undoToolStripMenuItem");
             this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // reSetGameToolStripMenuItem
             // 
             this.reSetGameToolStripMenuItem.Name = "reSetGameToolStripMenuItem";
-            this.reSetGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.reSetGameToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.reSetGameToolStripMenuItem.Text = "ResetGame";
+            resources.ApplyResources(this.reSetGameToolStripMenuItem, "reSetGameToolStripMenuItem");
             this.reSetGameToolStripMenuItem.Click += new System.EventHandler(this.reSetGameToolStripMenuItem_Click_1);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(171, 6);
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.X)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             // 
             // timerCheckEndGame
             // 
@@ -164,118 +143,87 @@
             // 
             // proBlack
             // 
-            this.proBlack.Location = new System.Drawing.Point(836, 261);
+            resources.ApplyResources(this.proBlack, "proBlack");
             this.proBlack.Name = "proBlack";
-            this.proBlack.Size = new System.Drawing.Size(306, 16);
-            this.proBlack.TabIndex = 9;
             this.proBlack.Value = 100;
             // 
             // proWhite
             // 
-            this.proWhite.Location = new System.Drawing.Point(836, 140);
+            resources.ApplyResources(this.proWhite, "proWhite");
             this.proWhite.Name = "proWhite";
-            this.proWhite.Size = new System.Drawing.Size(306, 16);
-            this.proWhite.TabIndex = 8;
             this.proWhite.Value = 100;
             // 
             // pbPlayer2
             // 
-            this.pbPlayer2.BackColor = System.Drawing.Color.Tomato;
-            this.pbPlayer2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbPlayer2.BackgroundImage")));
-            this.pbPlayer2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbPlayer2.Location = new System.Drawing.Point(836, 169);
+            this.pbPlayer2.BackColor = System.Drawing.Color.Transparent;
+            this.pbPlayer2.BackgroundImage = global::GUI.Properties.Resources.chess_PNG8448;
+            resources.ApplyResources(this.pbPlayer2, "pbPlayer2");
             this.pbPlayer2.Name = "pbPlayer2";
-            this.pbPlayer2.Size = new System.Drawing.Size(89, 91);
-            this.pbPlayer2.TabIndex = 7;
             this.pbPlayer2.TabStop = false;
             // 
             // pbPlayer1
             // 
             this.pbPlayer1.BackColor = System.Drawing.Color.Transparent;
-            this.pbPlayer1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbPlayer1.BackgroundImage")));
-            this.pbPlayer1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbPlayer1.Location = new System.Drawing.Point(836, 45);
+            this.pbPlayer1.BackgroundImage = global::GUI.Properties.Resources.chess_3413412_960_720;
+            resources.ApplyResources(this.pbPlayer1, "pbPlayer1");
             this.pbPlayer1.Name = "pbPlayer1";
-            this.pbPlayer1.Size = new System.Drawing.Size(89, 93);
-            this.pbPlayer1.TabIndex = 6;
             this.pbPlayer1.TabStop = false;
             // 
             // btnReset
             // 
-            this.btnReset.BackColor = System.Drawing.Color.DarkGray;
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnReset.Location = new System.Drawing.Point(490, 582);
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(135)))), ((int)(((byte)(128)))));
+            resources.ApplyResources(this.btnReset, "btnReset");
+            this.btnReset.ForeColor = System.Drawing.Color.GhostWhite;
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(102, 37);
-            this.btnReset.TabIndex = 10;
-            this.btnReset.Text = "New game";
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.Color.DarkGray;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnExit.Location = new System.Drawing.Point(611, 582);
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(135)))), ((int)(((byte)(128)))));
+            resources.ApplyResources(this.btnExit, "btnExit");
+            this.btnExit.ForeColor = System.Drawing.Color.GhostWhite;
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(102, 37);
-            this.btnExit.TabIndex = 10;
-            this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnPlay
             // 
-            this.btnPlay.BackColor = System.Drawing.Color.DarkGray;
-            this.btnPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlay.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnPlay.Location = new System.Drawing.Point(475, 302);
+            this.btnPlay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(135)))), ((int)(((byte)(7)))));
+            resources.ApplyResources(this.btnPlay, "btnPlay");
+            this.btnPlay.ForeColor = System.Drawing.Color.White;
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(117, 48);
-            this.btnPlay.TabIndex = 10;
-            this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = false;
             this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // btnUndo
             // 
-            this.btnUndo.BackColor = System.Drawing.Color.DarkGray;
-            this.btnUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUndo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUndo.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnUndo.Location = new System.Drawing.Point(365, 582);
+            this.btnUndo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(135)))), ((int)(((byte)(128)))));
+            resources.ApplyResources(this.btnUndo, "btnUndo");
+            this.btnUndo.ForeColor = System.Drawing.Color.GhostWhite;
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(102, 37);
-            this.btnUndo.TabIndex = 10;
-            this.btnUndo.Text = "Undo";
             this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // pbSound
             // 
             this.pbSound.BackColor = System.Drawing.Color.Transparent;
-            this.pbSound.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbSound.BackgroundImage")));
-            this.pbSound.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbSound.Location = new System.Drawing.Point(19, 42);
+            resources.ApplyResources(this.pbSound, "pbSound");
             this.pbSound.Name = "pbSound";
-            this.pbSound.Size = new System.Drawing.Size(38, 38);
-            this.pbSound.TabIndex = 11;
             this.pbSound.TabStop = false;
             this.pbSound.Click += new System.EventHandler(this.pbSound_Click);
             // 
+            // bunifuElipse1
+            // 
+            this.bunifuElipse1.ElipseRadius = 120;
+            this.bunifuElipse1.TargetControl = this.btnPlay;
+            // 
             // Mode1AndMode2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1160, 631);
+            this.BackgroundImage = global::GUI.Properties.Resources.backgournd;
             this.Controls.Add(this.pbSound);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPlay);
@@ -287,10 +235,10 @@
             this.Controls.Add(this.pbPlayer1);
             this.Controls.Add(this.pnChat);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Mode1AndMode2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Bàn cờ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Mode1AndMode2_FormClosed);
             this.Load += new System.EventHandler(this.Mode1AndMode2_Load);
             this.pnChat.ResumeLayout(false);
@@ -328,5 +276,6 @@
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.PictureBox pbSound;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }

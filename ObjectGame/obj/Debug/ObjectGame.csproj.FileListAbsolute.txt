@@ -8,3 +8,8 @@ C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\ObjectG
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\ObjectGame\obj\Debug\ObjectGame.csprojResolveAssemblyReference.cache
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\ObjectGame\obj\Debug\ObjectGame.dll
 C:\Users\Nguyen Hong Phuc\Desktop\IT\2018\LTTQ\Đồ án\SourceChessGame\ObjectGame\obj\Debug\ObjectGame.pdb
+C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\bin\Debug\ObjectGame.dll
+C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\bin\Debug\ObjectGame.pdb
+C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.csprojResolveAssemblyReference.cache
+C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.dll
+C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.pdb
