@@ -73,9 +73,9 @@ namespace GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap chess_3413412_960_720 {
+        internal static System.Drawing.Bitmap bku {
             get {
-                object obj = ResourceManager.GetObject("chess-3413412_960_720", resourceCulture);
+                object obj = ResourceManager.GetObject("bku", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace GUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap chess_black_queen_7825577 {
+        internal static System.Drawing.Bitmap chess_3413412_960_720 {
             get {
-                object obj = ResourceManager.GetObject("chess-black-queen-7825577", resourceCulture);
+                object obj = ResourceManager.GetObject("chess-3413412_960_720", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,36 +106,6 @@ namespace GUI.Properties {
         internal static System.Drawing.Bitmap chess_PNG84481 {
             get {
                 object obj = ResourceManager.GetObject("chess_PNG84481", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap download {
-            get {
-                object obj = ResourceManager.GetObject("download", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap master_SAGB211 {
-            get {
-                object obj = ResourceManager.GetObject("master_SAGB211", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap q_1520215610434461934295 {
-            get {
-                object obj = ResourceManager.GetObject("q-1520215610434461934295", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

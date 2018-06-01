@@ -56,22 +56,11 @@
     <Compile Include="OccupiedCell.cs" />
     <Compile Include="Pawn.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PromotionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PromotionForm.Designer.cs">
-      <DependentUpon>PromotionForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queen.cs" />
     <Compile Include="Rook.cs" />
     <Compile Include="SocketData.cs" />
     <Compile Include="SocketManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="PromotionForm.resx">
-      <DependentUpon>PromotionForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

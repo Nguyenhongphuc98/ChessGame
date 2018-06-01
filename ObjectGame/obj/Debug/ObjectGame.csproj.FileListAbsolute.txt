@@ -13,5 +13,3 @@ C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\bin\Debug\ObjectGame.pdb
 C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.csprojResolveAssemblyReference.cache
 C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.dll
 C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.pdb
-C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\GUI.PromotionForm.resources
-C:\Users\NGO THI HUYEN\Documents\Gamechess\ObjectGame\obj\Debug\ObjectGame.csproj.GenerateResource.Cache
